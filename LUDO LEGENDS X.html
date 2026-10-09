@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>LUDO LEGENDS X</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b1f;--vio:#7c3aed;--blue:#2f6bff;--gold:#ffc933;--glass:rgba(255,255,255,.07);--line:rgba(255,255,255,.16);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 0,#2d1070,transparent 55%),radial-gradient(ellipse at 95% 100%,#0b2a80,transparent 55%),#070b1f;color:#eaf0ff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+.orb{position:fixed;border-radius:50%;filter:blur(60px);opacity:.35;animation:fl 12s ease-in-out infinite alternate;pointer-events:none}
+@keyframes fl{to{transform:translate(40px,-60px) scale(1.2)}}
+.wrap{position:relative;max-width:1100px;margin:auto;padding:16px;display:flex;flex-direction:column;align-items:center}
+.logo{font-family:Orbitron,system-ui,sans-serif;font-weight:900;letter-spacing:.06em;text-align:center;margin:18px 0 6px;font-size:clamp(28px,7vw,56px);line-height:1.05;background:linear-gradient(90deg,#9ec2ff,#b794ff 50%,#ffc933);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(124,58,237,.7))}
+.sub{opacity:.7;margin:0 0 22px;text-align:center}
+.menu{display:grid;gap:12px;width:min(92vw,360px)}
+.btn{font:600 16px system-ui;color:#fff;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,#2f6bff,#7c3aed);cursor:pointer;box-shadow:0 0 18px rgba(79,70,229,.45);transition:.18s;display:flex;align-items:center;gap:10px;justify-content:center}
+.btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 30px rgba(124,58,237,.9)}.btn:active{transform:scale(.97)}
+.btn:focus-visible,.tok:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn.gold{background:linear-gradient(135deg,#ffc933,#ff9a1f);color:#2a1a00;box-shadow:0 0 22px rgba(255,201,51,.5)}
+.btn.ghost{background:var(--glass);box-shadow:none}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);width:100%}
+.panel{width:min(94vw,560px)}.panel h2{font-family:Orbitron,system-ui;margin:0 0 12px}
+.panel li{margin:8px 0;line-height:1.45}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.chip{padding:10px 16px;border-radius:12px;border:1px solid var(--line);background:var(--glass);color:#fff;cursor:pointer;font:600 15px system-ui}
+.chip.on{background:linear-gradient(135deg,#2f6bff,#7c3aed);border-color:var(--gold);box-shadow:0 0 14px rgba(124,58,237,.8)}
+input.in{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,.35);color:#fff;font:16px system-ui;width:100%}
+.game{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;align-items:flex-start;width:100%}
+.bw{width:min(94vw,640px)}
+.board{position:relative;aspect-ratio:1;border-radius:18px;background:#0e1438;box-shadow:0 0 0 3px rgba(255,201,51,.7),0 0 40px rgba(124,58,237,.6);overflow:hidden}
+.cell{position:absolute;width:6.6667%;height:6.6667%;border:1px solid rgba(10,15,50,.35);display:flex;align-items:center;justify-content:center;font-size:clamp(8px,2.4vw,16px);color:rgba(20,20,60,.75)}
+.yard{position:absolute;width:40%;height:40%;border-radius:10%}
+.yp{position:absolute;inset:16.667%;background:rgba(255,255,255,.92);border-radius:14%;display:grid;grid-template:1fr 1fr/1fr 1fr;place-items:center}
+.yp i{width:55%;aspect-ratio:1;border-radius:50%;opacity:.8;box-shadow:inset 0 0 8px rgba(0,0,0,.4)}
+.ctr{position:absolute;left:40%;top:40%;width:20%;height:20%;background:conic-gradient(from -45deg,#22d37a 0 90deg,#ffc933 0 180deg,#3b8bff 0 270deg,#ff3b5c 0)}
+.tok{position:absolute;width:5.2%;aspect-ratio:1;border-radius:50%;border:2px solid #fff;transform:translate(-50%,-50%);transition:left .17s linear,top .17s linear;font:800 clamp(8px,2.3vw,14px) system-ui;color:#fff;text-shadow:0 1px 2px #000;padding:0;cursor:default;box-shadow:0 3px 6px rgba(0,0,0,.6)}
+.tok.can{cursor:pointer;animation:pl .7s ease-in-out infinite alternate;border-color:var(--gold);z-index:50!important}
+@keyframes pl{from{box-shadow:0 0 0 0 rgba(255,201,51,.9)}to{box-shadow:0 0 0 9px rgba(255,201,51,0);transform:translate(-50%,-62%) scale(1.15)}}
+.side{flex:1 1 280px;max-width:420px;display:grid;gap:12px;width:min(94vw,420px)}
+.pc{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--glass);transition:.2s}
+.pc.act{border-color:var(--c);box-shadow:0 0 18px var(--c);transform:scale(1.02)}
+.pc b{width:16px;height:16px;border-radius:50%;background:var(--c)}.pc span{margin-left:auto;opacity:.75;font-size:14px}
+.dice{width:84px;height:84px;border-radius:18px;background:linear-gradient(145deg,#fff,#c9d3ff);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:12px;box-shadow:0 0 24px rgba(255,255,255,.5)}
+.dice b{width:80%;aspect-ratio:1;border-radius:50%;place-self:center}.dice b.on{background:#1a1650}
+.dice.roll{animation:rl .45s linear infinite}@keyframes rl{to{transform:rotate(360deg) scale(1.1)}}
+.msg{min-height:44px;font-weight:600;line-height:1.35}
+.win{position:fixed;inset:0;background:rgba(5,8,25,.82);display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
+.win .card{max-width:420px;text-align:center;animation:pop .5s cubic-bezier(.2,1.4,.4,1)}@keyframes pop{from{transform:scale(.3);opacity:0}}
+.cf{position:fixed;top:-20px;width:10px;height:16px;z-index:101;animation:cf linear infinite;pointer-events:none}@keyframes cf{to{transform:translateY(110vh) rotate(720deg)}}
+@media (prefers-reduced-motion:reduce){.orb,.cf,.tok.can,.dice.roll{animation:none}}
+</style></head><body><div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>
+const {useState,useRef,useEffect}=React,h=React.createElement,U=100/15;
+const CFG={sound:true,speed:170,auto:false};
+const COL={red:'#ff3b5c',green:'#22d37a',yellow:'#ffc933',blue:'#3b8bff'},ORDER=['red','green','yellow','blue'];
+const START={red:0,green:13,yellow:26,blue:39},SAFE=[0,8,13,21,26,34,39,47];
+const PATH=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
+const HOME={red:[1,2,3,4,5].map(c=>[7,c]),green:[1,2,3,4,5].map(r=>[r,7]),yellow:[13,12,11,10,9].map(c=>[7,c]),blue:[13,12,11,10,9].map(r=>[r,7])};
+const YO={red:[0,0],green:[0,9],yellow:[9,9],blue:[9,0]};
+const SETS={2:['red','yellow'],3:['red','green','yellow'],4:ORDER},AIN=['Nova','Blaze','Orion'];
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let AC;function sfx(f,d=.08,t='sine'){if(!CFG.sound)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type=t;o.frequency.value=f;g.gain.value=.06;o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}}
+// ---- game rules ----
+// token pos: -1 yard, 0..50 ring (relative to own start), 51..55 home column, 56 finished
+function xy(col,i,p){if(p<0){const[o,c]=YO[col];return[o+2+(i>>1)*2,c+2+(i&1)*2]}
+ if(p<=50){const[r,c]=PATH[(START[col]+p)%52];return[r+.5,c+.5]}
+ if(p<56){const[r,c]=HOME[col][p-51];return[r+.5,c+.5]}
+ const d={red:[0,-1],green:[-1,0],yellow:[0,1],blue:[1,0]}[col],k=(i-1.5)*.3;return[7.5+d[0]*.85+d[1]*k,7.5+d[1]*.85+d[0]*k]}
+const legalMoves=(g,col,d)=>g.tok[col].map((p,i)=>(p<0?d===6:p+d<=56)?i:-1).filter(i=>i>=0);
+function newGame(players){const tok={};players.forEach(p=>tok[p.color]=[-1,-1,-1,-1]);
+ return{players,tok,turn:0,dice:0,phase:'roll',moves:[],sixes:0,busy:false,over:false,winner:null,dead:false,msg:`${players[0].name} starts — roll the dice!`}}
+function aiPick(g){const col=g.players[g.turn].color,d=g.dice;let best=g.moves[0],bs=-1e9;
+ g.moves.forEach(i=>{const p=g.tok[col][i],np=p<0?0:p+d;let s=np+Math.random()*3;if(p<0)s+=30;if(np===56)s+=60;
+  if(np<=50){const a=(START[col]+np)%52;if(SAFE.includes(a))s+=12;else Object.keys(g.tok).forEach(o=>{if(o!==col)g.tok[o].forEach(q=>{if(q<0||q>50)return;const oa=(START[o]+q)%52;if(oa===a)s+=70;else if((a-oa+52)%52<=6)s-=14})})}
+  if(s>bs){bs=s;best=i}});return best}
+// ---- UI pieces ----
+function Dice({v,rolling}){const P={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]}[v||1];
+ return h('div',{className:'dice'+(rolling?' roll':''),role:'img','aria-label':'Dice '+(v||'')},[...Array(9)].map((_,i)=>h('b',{key:i,className:P.includes(i)?'on':''})))}
+function Board({g,onTok}){const cells=[];
+ PATH.forEach(([r,c],k)=>{const o=ORDER.find(x=>START[x]===k);cells.push(h('div',{key:'r'+k,className:'cell',style:{left:c*U+'%',top:r*U+'%',background:o?COL[o]:'#f2f5ff'}},SAFE.includes(k)?'★':''))});
+ ORDER.forEach(o=>HOME[o].forEach(([r,c],k)=>cells.push(h('div',{key:o+'h'+k,className:'cell',style:{left:c*U+'%',top:r*U+'%',background:COL[o],opacity:.85}}))));
+ const yards=ORDER.map(o=>h('div',{key:'y'+o,className:'yard',style:{left:YO[o][1]*U+'%',top:YO[o][0]*U+'%',background:COL[o]}},h('div',{className:'yp'},[0,1,2,3].map(i=>h('i',{key:i,style:{background:COL[o]}})))));
+ const cur=g.players[g.turn],all=[],cnt={};
+ g.players.forEach(p=>g.tok[p.color].forEach((pos,i)=>{const[y,x]=xy(p.color,i,pos),k=pos<0?null:y+','+x;all.push({p,i,pos,y,x,k});if(k)cnt[k]=(cnt[k]||0)+1}));
+ const seen={};
+ const toks=all.map(t=>{let ox=0,oy=0;if(t.k&&cnt[t.k]>1){const n=seen[t.k]=(seen[t.k]||0)+1,a=n/cnt[t.k]*6.283;ox=Math.cos(a)*.2;oy=Math.sin(a)*.2}
+  const can=g.phase==='move'&&!cur.ai&&cur.color===t.p.color&&g.moves.includes(t.i),c=t.p.color;
+  return h('button',{key:c+t.i,className:'tok'+(can?' can':''),disabled:!can,onClick:()=>onTok(t.i),'aria-label':`${c} token ${t.i+1}`,
+   style:{left:(t.x+ox)*U+'%',top:(t.y+oy)*U+'%',zIndex:can?50:10+t.pos,background:`radial-gradient(circle at 35% 30%,#fffa,${COL[c]} 55%,#0007)`}},t.i+1)});
+ return h('div',{className:'board'},cells,yards,h('div',{className:'ctr'}),toks)}
+function Confetti(){const r=useRef([...Array(60)].map(()=>({l:Math.random()*100,d:Math.random()*2,t:2+Math.random()*2.5,c:Object.values(COL)[Math.random()*4|0]})));
+ return r.current.map((p,i)=>h('div',{key:i,className:'cf',style:{left:p.l+'%',background:p.c,animationDuration:p.t+'s',animationDelay:p.d+'s'}}))}
+// ---- game screen ----
+function Game({players,mode,onExit,onEnd}){
+ const[,tk]=useState(0),up=()=>tk(n=>n+1),R=useRef(null);if(!R.current)R.current=newGame(players);const g=R.current;
+ useEffect(()=>()=>{R.current.dead=true},[]);
+ const next=extra=>{if(!extra){g.turn=(g.turn+1)%g.players.length;g.sixes=0}g.phase='roll';g.busy=false;g.moves=[];const p=g.players[g.turn];
+  g.msg=extra?`${p.name} rolls again!`:`${p.name}'s turn — ${p.ai?'thinking…':'roll the dice'}`;up()};
+ const roll=async()=>{if(g.busy||g.phase!=='roll'||g.over)return;g.busy=true;g.phase='rolling';
+  for(let k=0;k<9;k++){g.dice=1+(Math.random()*6|0);sfx(200+k*30,.03);up();await sleep(65);if(g.dead)return}
+  const v=1+(Math.random()*6|0),p=g.players[g.turn];g.dice=v;g.sixes=v===6?g.sixes+1:0;
+  if(g.sixes===3){g.msg=`${p.name} rolled three 6s — turn lost!`;up();await sleep(1100);if(g.dead)return;return next(false)}
+  g.moves=legalMoves(g,p.color,v);
+  if(!g.moves.length){g.msg=`${p.name} rolled ${v} — no legal moves.`;up();await sleep(1000);if(g.dead)return;return next(false)}
+  g.msg=`${p.name} rolled ${v}. ${p.ai?'':'Tap a glowing token to move.'}`;g.phase='move';g.busy=false;up()};
+ const doMove=async i=>{if(g.busy||g.phase!=='move'||!g.moves.includes(i))return;g.busy=true;g.phase='anim';
+  const p=g.players[g.turn],col=p.color,t=g.tok[col];let extra=g.dice===6,cap=false;g.moves=[];
+  if(t[i]<0){t[i]=0;sfx(660);up();await sleep(CFG.speed)}
+  else for(let s=0;s<g.dice;s++){t[i]++;sfx(420+t[i]*4,.06);up();await sleep(CFG.speed);if(g.dead)return}
+  if(g.dead)return;
+  if(t[i]<=50){const a=(START[col]+t[i])%52;if(!SAFE.includes(a))Object.keys(g.tok).forEach(o=>{if(o!==col)g.tok[o].forEach((q,j)=>{if(q>=0&&q<=50&&(START[o]+q)%52===a){g.tok[o][j]=-1;cap=true}})})}
+  if(cap){extra=true;sfx(150,.35,'sawtooth')}
+  if(t[i]===56){extra=true;sfx(880,.3)}
+  if(t.every(x=>x===56)){g.over=true;g.winner=p;g.phase='over';g.busy=false;sfx(990,.5);onEnd(!p.ai);up();return}
+  const note=cap?`${p.name} captured a token!`:t[i]===56?`${p.name} got a token home!`:'';
+  next(extra);if(note){g.msg=note+' '+g.msg;up()}};
+ const restart=()=>{g.dead=true;R.current=newGame(players);up()};
+ useEffect(()=>{if(g.dead||g.over||g.busy)return;const p=g.players[g.turn];
+  const auto=CFG.auto&&g.phase==='move'&&g.moves.length===1;if(!p.ai&&!auto)return;
+  const t=setTimeout(()=>{if(g.phase==='roll')roll();else if(g.phase==='move')doMove(aiPick(g))},CFG.speed*3+250);return()=>clearTimeout(t)});
+ const cur=g.players[g.turn],humanTurn=!cur.ai&&g.phase==='roll'&&!g.busy&&!g.over;
+ return h('div',{className:'wrap'},
+  h('div',{className:'game'},
+   h('div',{className:'bw'},h(Board,{g,onTok:doMove})),
+   h('div',{className:'side'},
+    g.players.map(p=>h('div',{key:p.color,className:'pc'+(p===cur&&!g.over?' act':''),style:{'--c':COL[p.color]}},h('b'),p.name+(p.ai?' 🤖':''),h('span',null,g.tok[p.color].filter(x=>x===56).length+'/4 home'))),
+    h('div',{className:'card'},h('div',{className:'row'},h(Dice,{v:g.dice,rolling:g.phase==='rolling'}),
+      h('button',{className:'btn gold',disabled:!humanTurn,onClick:roll},humanTurn?'🎲 Roll dice':cur.ai?'CPU turn…':'Please wait…')),
+     h('div',{className:'msg',role:'status','aria-live':'polite'},g.msg),
+     h('div',{style:{opacity:.75,fontSize:14}},g.phase==='move'?'Legal moves: token '+g.moves.map(i=>i+1).join(', '):'6 = enter a token & roll again · capture or reach home = bonus roll')),
+    h('div',{className:'row'},h('button',{className:'btn ghost',onClick:restart},'↻ Restart'),h('button',{className:'btn ghost',onClick:onExit},'⌂ Menu'),
+     h('button',{className:'btn ghost',onClick:()=>{CFG.sound=!CFG.sound;up()}},CFG.sound?'🔊':'🔇')))),
+  g.over&&h('div',{className:'win'},h(Confetti),h('div',{className:'card'},h('div',{style:{fontSize:56}},'🏆'),
+   h('h2',{className:'logo',style:{fontSize:28}},g.winner.name+' wins!'),h('p',null,mode==='cpu'?(g.winner.ai?'The computer took this one. Rematch?':'Legendary play!'):'Congratulations!'),
+   h('div',{className:'row',style:{justifyContent:'center'}},h('button',{className:'btn gold',onClick:restart},'Play again'),h('button',{className:'btn ghost',onClick:onExit},'Menu')))))}
+// ---- app shell ----
+const Back=({go})=>h('button',{className:'btn ghost',style:{marginTop:14},onClick:()=>go('home')},'← Back');
+function Setup({mode,go,start}){const cpu=mode==='cpu',opts=cpu?[1,2,3]:[2,3,4],[n,setN]=useState(opts[opts.length-1]);
+ return h('div',{className:'card panel'},h('h2',null,cpu?'Play with Computer':'Local Multiplayer'),
+  h('p',null,cpu?'You play Red. How many computer opponents?':'Pass the device around. How many players?'),
+  h('div',{className:'row'},opts.map(o=>h('button',{key:o,className:'chip'+(o===n?' on':''),onClick:()=>setN(o)},o+(cpu?' CPU':' players')))),
+  h('button',{className:'btn gold',style:{width:'100%'},onClick:()=>start(mode,n)},'Start game'),h(Back,{go}))}
+function App(){
+ const[scr,setScr]=useState('home'),[,tk]=useState(0),[game,setGame]=useState(null),refresh=()=>tk(n=>n+1);
+ const load=()=>{try{return{name:'Player',wins:0,games:0,...JSON.parse(localStorage.getItem('llx')||'{}')}}catch(e){return{name:'Player',wins:0,games:0}}};
+ const[prof,setProf]=useState(load),save=f=>setProf(p=>{const n=f(p);try{localStorage.setItem('llx',JSON.stringify(n))}catch(e){}return n});
+ const start=(mode,n)=>{const cs=SETS[mode==='cpu'?n+1:n],pl=cs.map((c,i)=>({color:c,ai:mode==='cpu'&&i>0,name:mode==='cpu'?(i?'CPU '+AIN[i-1]:prof.name||'You'):'Player '+(i+1)}));setGame({mode,pl,key:Date.now()});setScr('game')};
+ const orbs=[['#7c3aed','-80px','-60px'],['#2f6bff','60%','55%'],['#ffc933','75%','-120px']].map((o,i)=>h('div',{key:i,className:'orb',style:{width:320,height:320,background:o[0],left:o[1],top:o[2],animationDelay:i*2+'s'}}));
+ let body;
+ if(scr==='game'&&game)return h('div',null,orbs,h(Game,{key:game.key,players:game.pl,mode:game.mode,onExit:()=>setScr('home'),onEnd:won=>{if(game.mode==='cpu')save(p=>({...p,games:p.games+1,wins:p.wins+(won?1:0)}))}}));
+ const home=[['▶','Play Now',()=>start('cpu',3),'gold'],['🤖','Play with Computer',()=>setScr('cpu')],['👥','Local Multiplayer',()=>setScr('local')],['📖','How to Play',()=>setScr('how')],['🧑‍🚀','Player Profile',()=>setScr('prof')],['⚙️','Settings',()=>setScr('set')],[CFG.sound?'🔊':'🔇','Sound: '+(CFG.sound?'On':'Off'),()=>{CFG.sound=!CFG.sound;sfx(600);refresh()},'ghost']];
+ if(scr==='home')body=[h('div',{className:'menu',key:'m'},home.map(b=>h('button',{key:b[1],className:'btn '+(b[3]||''),onClick:b[2]},b[0]+' '+b[1])))];
+ else if(scr==='cpu'||scr==='local')body=h(Setup,{mode:scr,go:setScr,start});
+ else if(scr==='how')body=h('div',{className:'card panel'},h('h2',null,'How to play'),h('ul',null,
+  ['Roll the dice on your turn. Roll a 6 to bring a token out of your yard.','Tap a glowing token to move it that many steps clockwise. Only glowing tokens are legal.','Land on an opponent’s token to send it back to its yard — unless it sits on a ★ safe cell or a coloured start cell.','A 6, a capture, or getting a token home gives you another roll. Three 6s in a row lose your turn.','Each token must travel all the way round, up your coloured home column, and finish with an exact roll.','Get all four tokens home first to win.'].map((t,i)=>h('li',{key:i},t))),h(Back,{go:setScr}));
+ else if(scr==='prof')body=h('div',{className:'card panel'},h('h2',null,'Player profile'),h('label',null,'Your name',h('input',{className:'in',maxLength:14,value:prof.name,onChange:e=>save(p=>({...p,name:e.target.value}))})),
+  h('p',null,`Games vs computer: ${prof.games} · Wins: ${prof.wins}`+(prof.games?'':' — play a game to fill your stats.')),h('button',{className:'btn ghost',onClick:()=>save(p=>({...p,wins:0,games:0}))},'Reset stats'),h(Back,{go:setScr}));
+ else if(scr==='set')body=h('div',{className:'card panel'},h('h2',null,'Settings'),h('p',null,'Sound effects'),
+  h('div',{className:'row'},[['On',true],['Off',false]].map(([l,v])=>h('button',{key:l,className:'chip'+(CFG.sound===v?' on':''),onClick:()=>{CFG.sound=v;refresh()}},l))),
+  h('p',null,'Token speed'),h('div',{className:'row'},[['Slow',300],['Normal',170],['Fast',80]].map(([l,v])=>h('button',{key:l,className:'chip'+(CFG.speed===v?' on':''),onClick:()=>{CFG.speed=v;refresh()}},l))),
+  h('p',null,'Auto-move when only one move is possible'),h('div',{className:'row'},[['On',true],['Off',false]].map(([l,v])=>h('button',{key:l,className:'chip'+(CFG.auto===v?' on':''),onClick:()=>{CFG.auto=v;refresh()}},l))),h(Back,{go:setScr}));
+ return h('div',{className:'wrap'},orbs,h('h1',{className:'logo'},'LUDO LEGENDS X'),h('p',{className:'sub'},'Roll. Race. Rule the board.'),body)}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script></body></html>
