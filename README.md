@@ -43,7 +43,7 @@ The main objective of LUDO LEGENDS X is to develop a visually appealing and user
 
 **Play LUDO LEGENDS X online:**
 
-[Click here to play the game](PASTE_YOUR_VERCEL_LIVE_LINK_HERE)
+[Click here to play the game](https://ludo-legends-x.vercel.app/)
 
 ## 📂 Project Structure
 
